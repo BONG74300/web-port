@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - Web Port</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 100%);
+            color: #e0e0ff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Star background */
+        #starContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Center container */
+        .navbar-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            width: calc(100% - 40px);
+            max-width: 1000px;
+            margin: 0 auto;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 120px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Round edged black bar */
+        .navbar {
+            background: #000;
+            border: 1px solid #4a90e2;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            flex: 1;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        /* Left section */
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        /* GitHub button */
+        .github-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            min-width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+        }
+
+        .github-btn:hover {
+            background: #5ba3ff;
+            box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+        }
+
+        .github-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Center column with web-port and search */
+        .center-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+
+        /* Brand section */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .walrus {
+            font-size: 1.8em;
+            filter: hue-rotate(210deg) saturate(2);
+        }
+
+        .brand-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #5eb3ff;
+            text-shadow: 0 0 10px rgba(94, 179, 255, 0.3);
+            margin: 0;
+        }
+
+        .brand-creator {
+            font-size: 0.65em;
+            color: #a0b8ff;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* Search bar */
+        .search-container {
+            width: 250px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 8px 15px;
+            background: #1a1a3e;
+            border: 1px solid #4a90e2;
+            border-radius: 8px;
+            color: #e0e0ff;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            height: 35px;
+        }
+
+        .search-bar::placeholder {
+            color: #6a7aaa;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(74, 144, 226, 0.4);
+            background: #252550;
+        }
+
+        /* Right section */
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            height: 45px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #5ba3ff;
+            box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Main content */
+        .content {
+            position: relative;
+            z-index: 2;
+            margin-top: 180px;
+            padding: 40px 20px;
+        }
+
+        .games-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #4a90e2;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(74, 144, 226, 0.6);
+            border-color: #5ba3ff;
+        }
+
+        .game-card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .game-card-info {
+            padding: 20px;
+        }
+
+        .game-card-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #5eb3ff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(94, 179, 255, 0.3);
+        }
+
+        .game-card-description {
+            font-size: 0.95em;
+            color: #a0b8ff;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .game-card-btn {
+            width: 100%;
+            padding: 10px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .game-card-btn:hover {
+            background: #5ba3ff;
+            box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="starContainer"></div>
+
+    <div class="navbar-container">
+        <div class="navbar">
+            <div class="navbar-left">
+                <a href="/" class="github-btn" title="GitHub">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.6.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+
+                <div class="center-column">
+                    <div class="brand">
+                        <span class="walrus">🦭</span>
+                        <div style="text-align: center;">
+                            <p class="brand-name">web-port</p>
+                            <p class="brand-creator">made by TrueTreasure_TT and Daddy Walrus</p>
+                        </div>
+                        <span class="walrus">🦭</span>
+                    </div>
+
+                    <div class="search-container">
+                        <input type="text" class="search-bar" placeholder="search google">
+                    </div>
+                </div>
+            </div>
+
+            <div class="navbar-right">
+                <a href="/games" class="nav-btn">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M21 6h-2.64A3 3 0 0 0 15 3H9a3 3 0 0 0-3.36 3H3a1 1 0 0 0 0 2h1v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8h1a1 1 0 0 0 0-2zM9 5h6a1 1 0 0 1 1 1v1H8V6a1 1 0 0 1 1-1zm8 14H7a1 1 0 0 1-1-1V8h12v10a1 1 0 0 1-1 1zm-2-9a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1zm-4 0a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1z"/>
+                    </svg>
+                    Games
+                </a>
+                <a href="/apps" class="nav-btn">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54h2.86v2.15h-5v-2.41l2.75-3.54h-2.86V8.75h5v2.54z"/>
+                    </svg>
+                    Apps
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="games-container">
+            <div class="game-card">
+                <img src="https://upload.wikimedia.org/wikipedia/en/5/57/Doom_II_Box_Art.png" alt="Doom II" class="game-card-image">
+                <div class="game-card-info">
+                    <h2 class="game-card-title">Doom II</h2>
+                    <p class="game-card-description">Hell on Earth. The Cybernetic Satan returns from the depths of Hell and commands an army of demonic creatures to conquer the world.</p>
+                    <button class="game-card-btn">Play Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate random stars
+        function createStars() {
+            const starContainer = document.getElementById('starContainer');
+            const starCount = 300;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 3 + 0.5;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = Math.random() * 3 + 2;
+                
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = x + '%';
+                star.style.top = y + '%';
+                star.style.animationDuration = duration + 's';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                
+                starContainer.appendChild(star);
+            }
+        }
+
+        createStars();
+    </script>
+</body>
+</html>
