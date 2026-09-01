@@ -218,6 +218,42 @@
             padding: 40px 20px;
         }
 
+        /* Search games section */
+        .search-games-section {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-games-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-games-bar {
+            width: 100%;
+            padding: 15px 20px;
+            background: #1a1a3e;
+            border: 2px solid #4a90e2;
+            border-radius: 10px;
+            color: #e0e0ff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .search-games-bar::placeholder {
+            color: #6a7aaa;
+        }
+
+        .search-games-bar:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+            background: #252550;
+            border-color: #5ba3ff;
+        }
+
+        /* Games grid */
         .games-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -332,7 +368,15 @@
     </div>
 
     <div class="content">
-        <div class="games-container">
+        <!-- Search Games Section -->
+        <div class="search-games-section">
+            <div class="search-games-container">
+                <input type="text" class="search-games-bar" placeholder="Search games..." id="searchGames">
+            </div>
+        </div>
+
+        <!-- Games Grid -->
+        <div class="games-container" id="gamesContainer">
             <div class="game-card">
                 <img src="https://upload.wikimedia.org/wikipedia/en/5/57/Doom_II_Box_Art.png" alt="Doom II" class="game-card-image">
                 <div class="game-card-info">
@@ -371,6 +415,25 @@
         }
 
         createStars();
+
+        // Search functionality
+        const searchInput = document.getElementById('searchGames');
+        const gameCards = document.querySelectorAll('.game-card');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            gameCards.forEach(card => {
+                const title = card.querySelector('.game-card-title').textContent.toLowerCase();
+                const description = card.querySelector('.game-card-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
     </script>
 </body>
 </html>
