@@ -50,7 +50,7 @@
             top: 20px;
             left: 20px;
             right: 20px;
-            height: 60px;
+            height: 120px;
             z-index: 100;
             display: flex;
             align-items: center;
@@ -92,6 +92,7 @@
             transition: all 0.3s ease;
             text-decoration: none;
             min-width: 45px;
+            height: 45px;
         }
 
         .github-btn:hover {
@@ -104,21 +105,54 @@
             height: 24px;
         }
 
+        /* Brand section */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+            margin: 0 20px;
+        }
+
+        .walrus {
+            font-size: 2.5em;
+            color: #4a90e2;
+        }
+
+        .brand-info {
+            text-align: center;
+        }
+
+        .brand-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #5eb3ff;
+            text-shadow: 0 0 10px rgba(94, 179, 255, 0.3);
+            margin: 0;
+        }
+
+        .brand-creator {
+            font-size: 0.75em;
+            color: #a0b8ff;
+            margin: 0;
+        }
+
         /* Search bar */
         .search-container {
             flex: 1;
-            max-width: 400px;
+            max-width: 300px;
         }
 
         .search-bar {
             width: 100%;
-            padding: 8px 15px;
+            padding: 10px 15px;
             background: #1a1a3e;
             border: 1px solid #4a90e2;
             border-radius: 8px;
             color: #e0e0ff;
             font-size: 0.95em;
             transition: all 0.3s ease;
+            height: 45px;
         }
 
         .search-bar::placeholder {
@@ -139,7 +173,10 @@
         }
 
         .nav-btn {
-            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
             background: #4a90e2;
             color: white;
             border: none;
@@ -148,11 +185,17 @@
             font-size: 0.95em;
             transition: all 0.3s ease;
             white-space: nowrap;
+            height: 45px;
         }
 
         .nav-btn:hover {
             background: #5ba3ff;
             box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
         }
     </style>
 </head>
@@ -168,14 +211,33 @@
                     </svg>
                 </a>
 
+                <div class="brand">
+                    <span class="walrus">🦭</span>
+                    <div class="brand-info">
+                        <p class="brand-name">web-port</p>
+                        <p class="brand-creator">made by TrueTreasure_TT and Daddy Walrus</p>
+                    </div>
+                    <span class="walrus">🦭</span>
+                </div>
+
                 <div class="search-container">
                     <input type="text" class="search-bar" placeholder="Search games...">
                 </div>
             </div>
 
             <div class="navbar-right">
-                <button class="nav-btn">Games</button>
-                <button class="nav-btn">Apps</button>
+                <button class="nav-btn">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M21 6h-2.64A3 3 0 0 0 15 3H9a3 3 0 0 0-3.36 3H3a1 1 0 0 0 0 2h1v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8h1a1 1 0 0 0 0-2zM9 5h6a1 1 0 0 1 1 1v1H8V6a1 1 0 0 1 1-1zm8 14H7a1 1 0 0 1-1-1V8h12v10a1 1 0 0 1-1 1zm-2-9a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1zm-4 0a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1z"/>
+                    </svg>
+                    Games
+                </button>
+                <button class="nav-btn">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54h2.86v2.15h-5v-2.41l2.75-3.54h-2.86V8.75h5v2.54z"/>
+                    </svg>
+                    Apps
+                </button>
             </div>
         </div>
     </div>
