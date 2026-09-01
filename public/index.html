@@ -18,6 +18,9 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Star background */
@@ -44,17 +47,16 @@
             50% { opacity: 1; }
         }
 
-        /* Top spacing */
+        /* Center container */
         .navbar-container {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            right: 20px;
+            width: 90%;
+            max-width: 1000px;
             height: 120px;
             z-index: 100;
             display: flex;
             align-items: center;
             gap: 15px;
+            position: relative;
         }
 
         /* Round edged black bar */
@@ -116,7 +118,7 @@
 
         .walrus {
             font-size: 2.5em;
-            color: #4a90e2;
+            filter: hue-rotate(210deg) saturate(2);
         }
 
         .brand-info {
@@ -246,7 +248,7 @@
         // Generate random stars
         function createStars() {
             const starContainer = document.getElementById('starContainer');
-            const starCount = 150;
+            const starCount = 300;
 
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
