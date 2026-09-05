@@ -217,6 +217,6 @@ document.addEventListener('keypress', (e) => {
   }
 });
 
-console.log('%c🌐 MyProxy Frontend Loaded', 'color: #667eea; font-size: 16px; font-weight: bold;');
+console.log('%c MyProxy Frontend Loaded', 'color: #667eea; font-size: 16px; font-weight: bold;');
 console.log('Version: 1.0.0');
 console.log('Proxy Backend: Ready on /proxy');
